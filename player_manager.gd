@@ -55,6 +55,10 @@ func set_player_data(player: int, key: StringName, value: Variant):
 	
 	player_data[player][key] = value
 
+func join_all_unjoined_devices():
+	for device in get_unjoined_devices():
+		join(device)
+
 # call this from a loop in the main menu or anywhere they can join
 # this is an example of how to look for an action on all devices
 func handle_join_input():
