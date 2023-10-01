@@ -62,11 +62,11 @@ Here is a basic usage example:
 var input
 
 func set_device(device: int):
-    input = DeviceInput.new(device)
+	input = DeviceInput.new(device)
 
 func _process(delta):
-    if input.is_action_just_pressed("jump"):
-        jump()
+	if input.is_action_just_pressed("jump"):
+		jump()
 ```
 
 Notice how the player is passed the relevant "device" number, and then the rest of the code looks exactly like using the Input singleton, except it's using a DeviceInput object instead.
@@ -82,8 +82,8 @@ If you want to do some logic that doesn't work with the actions system, for exam
 var input
 
 func _input(event):
-    if !input.is_keyboard(): return
-    # in this context, you know this is a keyboard/mouse player, so you can read mouse input here and do stuff
+	if !input.is_keyboard(): return
+	# in this context, you know this is a keyboard/mouse player, so you can read mouse input here and do stuff
 ```
 
 ## What about other Input functions?

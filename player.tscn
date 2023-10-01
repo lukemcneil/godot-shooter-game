@@ -1,18 +1,34 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0g7awhci4qy7"]
 
-[ext_resource type="Texture2D" uid="uid://ctc1i0n1jfm2e" path="res://icon.svg" id="1_cdyi1"]
 [ext_resource type="Script" path="res://player.gd" id="1_p6cnv"]
+[ext_resource type="PackedScene" uid="uid://v67h1i5dqysj" path="res://bullet.tscn" id="2_jmf6l"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_084tc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gp8h0"]
 size = Vector2(64, 64)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_p6cnv")
-metadata/_edit_group_ = true
+bullet_scene = ExtResource("2_jmf6l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_084tc")
+shape = SubResource("RectangleShape2D_gp8h0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_cdyi1")
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="BulletSpawnMarker" type="Marker2D" parent="."]
+position = Vector2(40, 0)
+
+[node name="Body" type="ColorRect" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="Gun" type="ColorRect" parent="."]
+offset_left = 16.0
+offset_top = -7.0
+offset_right = 43.0
+offset_bottom = 7.0
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
