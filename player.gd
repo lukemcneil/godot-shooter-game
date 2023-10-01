@@ -2,13 +2,30 @@ extends Area2D
 
 @export var speed = 400
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	print("readys")
-	pass # Replace with function body.
+signal leave
 
+var player: int
+var input
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# call this function when spawning this player to set up the input object based on the device
+func init(player_num: int, device: int):
+	player = player_num
+	
+	# in my project, I got the device integer by accessing the singleton autoload PlayerManager
+	# but for simplicity, it's not an autoload in this demo.
+	# but I recommend making it a singleton so you can access the player data from anywhere.
+	# that would look like the following line, instead of the device function parameter above.
+	# var device = PlayerManager.get_player_device(player)
+	input = DeviceInput.new(device)
+	
+#	$Player.text = "%s" % player_num
+
 func _process(delta):
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	position += direction * speed * delta
+	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
+	position += move * delta * speed
+	
+	# let the player leave by pressing the "join" button
+	if input.is_action_just_pressed("join"):
+		# an alternative to this is just call PlayerManager.leave(player)
+		# but that only works if you set up the PlayerManager singleton
+		leave.emit(player)
