@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var speed = 600
+@export var speed = 500
 
 func init(start_position: Vector2, start_rotation: float, color: Color):
 	position = start_position

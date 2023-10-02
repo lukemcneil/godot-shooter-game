@@ -15,8 +15,8 @@ const colors = [
 	Color.RED,
 	Color.BLUE,
 	Color.GREEN,
-	Color.BLACK,
 	Color.PURPLE,
+	Color.BLACK,
 	Color.ORANGE,
 	Color.YELLOW,
 	Color.BROWN
@@ -27,16 +27,17 @@ func init(player_num: int):
 	player = player_num
 	var device = PlayerManager.get_player_device(player)
 	input = DeviceInput.new(device)
+
+func _ready():
+	screen_size = get_viewport_rect().size
 	$ShootTimer.wait_time = shoot_delay
+	$ShootTimer.start()
 	rotation = randf() * 2 * PI
-	color = colors[player_num]
+	color = colors[player]
 	$Body.color = color
 	$Gun.color = color
 
-func _ready():
-	screen_size = get_viewport_rect().size	
-
-func _process(delta):
+func _physics_process(delta):
 	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
 	position += move * delta * speed
 	position = position.clamp(Vector2.ZERO, screen_size)

@@ -3,24 +3,24 @@
 [ext_resource type="Script" path="res://bullet.gd" id="1_utgbp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oouwr"]
-friction = 0.0
+friction = 0.5
 bounce = 0.7
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_okiop"]
-size = Vector2(14, 28)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02n0s"]
+size = Vector2(16, 28)
 
 [node name="Bullet" type="RigidBody2D"]
-position = Vector2(-33, -27)
 physics_material_override = SubResource("PhysicsMaterial_oouwr")
 gravity_scale = 0.0
 script = ExtResource("1_utgbp")
+speed = 600
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 use_parent_material = true
+position = Vector2(-1.14441e-05, -5.14984e-05)
 rotation = 1.5708
-shape = SubResource("RectangleShape2D_okiop")
-one_way_collision = true
+shape = SubResource("RectangleShape2D_02n0s")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0.500003, -0.499996)
