@@ -1,9 +1,10 @@
-extends Area2D
+extends CharacterBody2D
 
 @export var speed = 400
 @export var bullet_scene: PackedScene
 @export var shoot_delay = 0.1
 @export var starting_health = 3
+@export var invincible = false
 var color
 var screen_size
 var health
@@ -66,11 +67,9 @@ func _on_shoot_timer_timeout():
 	bullet.init($BulletSpawnMarker.global_position, rotation, color, player)
 	get_parent().add_child(bullet)
 
-func _on_body_entered(body):
-	if body.is_in_group("bullets"):
+func _on_player_area_body_entered(body):
+	if body.is_in_group("bullets") and not invincible:
 		body.queue_free()
 		health -= 1
 		if health == 0:
 			PlayerManager.leave(player)
-	else:
-		print("here")

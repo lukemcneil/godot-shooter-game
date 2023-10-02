@@ -10,6 +10,7 @@ func _ready():
 
 func _process(_delta):
 	PlayerManager.handle_join_input()
+	$FPS.text = str(Engine.get_frames_per_second())
 
 func spawn_player(player: int, device: int):
 	# create the player node

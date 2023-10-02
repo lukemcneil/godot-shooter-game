@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0g7awhci4qy7"]
+[gd_scene load_steps=6 format=3 uid="uid://d0g7awhci4qy7"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_p6cnv"]
 [ext_resource type="PackedScene" uid="uid://v67h1i5dqysj" path="res://bullet.tscn" id="2_jmf6l"]
@@ -7,15 +7,31 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rjjo"]
 size = Vector2(64, 64)
 
-[node name="Player" type="Area2D"]
+[sub_resource type="GDScript" id="GDScript_7ge7v"]
+script/source = "extends Area2D
+
+var player
+
+func _ready():
+	player = get_parent()
+
+
+"
+
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_p6cnv")
+speed = 300
 bullet_scene = ExtResource("2_jmf6l")
-shoot_delay = 0.25
+invincible = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5rjjo")
 
-[node name="ShootTimer" type="Timer" parent="."]
+[node name="PlayerArea" type="Area2D" parent="."]
+script = SubResource("GDScript_7ge7v")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerArea"]
+shape = SubResource("RectangleShape2D_5rjjo")
 
 [node name="BulletSpawnMarker" type="Marker2D" parent="."]
 position = Vector2(56, 0)
@@ -38,5 +54,7 @@ rotation = 1.5708
 scale = Vector2(0.375, 0.375)
 texture = ExtResource("3_aehm0")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="ShootTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="PlayerArea" to="." method="_on_player_area_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
