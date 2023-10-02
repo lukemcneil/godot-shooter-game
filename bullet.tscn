@@ -9,7 +9,7 @@ bounce = 0.7
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02n0s"]
 size = Vector2(16, 28)
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="RigidBody2D" groups=["bullets"]]
 physics_material_override = SubResource("PhysicsMaterial_oouwr")
 gravity_scale = 0.0
 script = ExtResource("1_utgbp")

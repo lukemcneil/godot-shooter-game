@@ -1,14 +1,17 @@
-extends CharacterBody2D
+extends Area2D
 
 @export var speed = 400
 @export var bullet_scene: PackedScene
 @export var shoot_delay = 0.1
+@export var starting_health = 3
 var color
 var screen_size
+var health
 
 signal leave
 
 var player: int
+var device_num: int
 var input
 
 const colors = [
@@ -23,8 +26,9 @@ const colors = [
 ]
 
 # call this function when spawning this player to set up the input object based on the device
-func init(player_num: int):
+func init(player_num: int, device_num: int):
 	player = player_num
+	self.device_num = device_num
 	var device = PlayerManager.get_player_device(player)
 	input = DeviceInput.new(device)
 
@@ -33,11 +37,12 @@ func _ready():
 	$ShootTimer.wait_time = shoot_delay
 	$ShootTimer.start()
 	rotation = randf() * 2 * PI
-	color = colors[player]
+	color = colors[device_num+1]
 	$Body.color = color
 	$Gun.color = color
+	health = starting_health
 
-func _physics_process(delta):
+func _process(delta):
 	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
 	position += move * delta * speed
 	position = position.clamp(Vector2.ZERO, screen_size)
@@ -58,5 +63,14 @@ func _physics_process(delta):
 
 func _on_shoot_timer_timeout():
 	var bullet = bullet_scene.instantiate()
-	bullet.init($BulletSpawnMarker.global_position, rotation, color)
+	bullet.init($BulletSpawnMarker.global_position, rotation, color, player)
 	get_parent().add_child(bullet)
+
+func _on_body_entered(body):
+	if body.is_in_group("bullets"):
+		body.queue_free()
+		health -= 1
+		if health == 0:
+			PlayerManager.leave(player)
+	else:
+		print("here")

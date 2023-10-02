@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rjjo"]
 size = Vector2(64, 64)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="Area2D"]
 script = ExtResource("1_p6cnv")
 bullet_scene = ExtResource("2_jmf6l")
 shoot_delay = 0.25
@@ -18,7 +18,7 @@ shape = SubResource("RectangleShape2D_5rjjo")
 [node name="ShootTimer" type="Timer" parent="."]
 
 [node name="BulletSpawnMarker" type="Marker2D" parent="."]
-position = Vector2(40, 0)
+position = Vector2(56, 0)
 
 [node name="Body" type="ColorRect" parent="."]
 offset_left = -32.0
@@ -38,4 +38,5 @@ rotation = 1.5708
 scale = Vector2(0.375, 0.375)
 texture = ExtResource("3_aehm0")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

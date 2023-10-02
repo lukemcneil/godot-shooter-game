@@ -11,14 +11,14 @@ func _ready():
 func _process(_delta):
 	PlayerManager.handle_join_input()
 
-func spawn_player(player: int):
+func spawn_player(player: int, device: int):
 	# create the player node
 	var player_scene = load("res://player.tscn")
 	var player_node = player_scene.instantiate()
 	player_nodes[player] = player_node
 	
 	# let the player know which device controls it
-	player_node.init(player)
+	player_node.init(player, device)
 	
 	# add the player to the tree
 	add_child(player_node)

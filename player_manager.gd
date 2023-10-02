@@ -24,7 +24,7 @@ func join(device: int):
 			"team":0,
 			"car":"muscle",
 		}
-		player_joined.emit(player)
+		player_joined.emit(player, device)
 
 func leave(player: int):
 	if player_data.has(player):
