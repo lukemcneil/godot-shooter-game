@@ -87,6 +87,12 @@ toggle_shoot={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="players"
+2d_physics/layer_2="bullets"
+2d_physics/layer_3="walls"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

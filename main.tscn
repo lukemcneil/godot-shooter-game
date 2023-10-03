@@ -9,9 +9,9 @@ normal = Vector2(0, 1)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_syubo"]
 normal = Vector2(1, 0)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_musug"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_28oc4"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ac5br"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hws1a"]
 normal = Vector2(-1, 0)
 
 [node name="Main" type="Node"]
@@ -24,20 +24,20 @@ script = ExtResource("1_5icx1")
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 4
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="WallTop" type="CollisionShape2D" parent="Walls"]
 shape = SubResource("WorldBoundaryShape2D_83n81")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="WallLeft" type="CollisionShape2D" parent="Walls"]
 shape = SubResource("WorldBoundaryShape2D_syubo")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="WallBottom" type="CollisionShape2D" parent="Walls"]
 position = Vector2(1152, 648)
-shape = SubResource("WorldBoundaryShape2D_musug")
+shape = SubResource("WorldBoundaryShape2D_28oc4")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1152, 648)
-shape = SubResource("WorldBoundaryShape2D_ac5br")
+[node name="WallRight" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1152, 0)
+shape = SubResource("WorldBoundaryShape2D_hws1a")

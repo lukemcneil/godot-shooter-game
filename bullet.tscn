@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c0ro8wxgpuilp" path="res://bullet.svg" id="2_mgxmj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oouwr"]
-friction = 0.5
+friction = 0.2
 bounce = 0.7
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ymv6"]
@@ -16,22 +16,22 @@ collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_oouwr")
 gravity_scale = 0.0
 script = ExtResource("1_utgbp")
-speed = 400
+speed = 1200
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 use_parent_material = true
 position = Vector2(-1.14441e-05, -5.14984e-05)
 rotation = 1.5708
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.3, 0.3)
 shape = SubResource("CircleShape2D_5ymv6")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, 1.90735e-06)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.3, 0.3)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_mgxmj")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

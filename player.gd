@@ -45,8 +45,8 @@ func _ready():
 
 func _process(delta):
 	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
-	move_and_collide(move * delta * speed)
-	position = position.clamp(Vector2.ZERO, screen_size)
+	velocity = move * speed
+	move_and_slide()
 	
 	var look: Vector2 = input.get_vector("look_left", "look_right", "look_up", "look_down")
 	if !look.is_zero_approx():
