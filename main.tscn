@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1gvpl3oxt31c"]
+[gd_scene load_steps=7 format=3 uid="uid://b1gvpl3oxt31c"]
 
 [ext_resource type="Script" path="res://player_manager.gd" id="1_5icx1"]
 [ext_resource type="Script" path="res://main.gd" id="1_tkpq6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_83n81"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_syubo"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_musug"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ac5br"]
+normal = Vector2(-1, 0)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tkpq6")
@@ -12,3 +23,21 @@ script = ExtResource("1_5icx1")
 [node name="FPS" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_83n81")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_syubo")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1152, 648)
+shape = SubResource("WorldBoundaryShape2D_musug")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1152, 648)
+shape = SubResource("WorldBoundaryShape2D_ac5br")

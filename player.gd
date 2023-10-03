@@ -45,7 +45,7 @@ func _ready():
 
 func _process(delta):
 	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
-	position += move * delta * speed
+	move_and_collide(move * delta * speed)
 	position = position.clamp(Vector2.ZERO, screen_size)
 	
 	var look: Vector2 = input.get_vector("look_left", "look_right", "look_up", "look_down")
@@ -67,7 +67,7 @@ func _on_shoot_timer_timeout():
 	bullet.init($BulletSpawnMarker.global_position, rotation, color, player)
 	get_parent().add_child(bullet)
 
-func _on_player_area_body_entered(body):
+func _on_player_hit_box_body_entered(body):
 	if body.is_in_group("bullets") and not invincible:
 		body.queue_free()
 		health -= 1
