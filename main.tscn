@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1gvpl3oxt31c"]
+[gd_scene load_steps=9 format=3 uid="uid://b1gvpl3oxt31c"]
 
 [ext_resource type="Script" path="res://player_manager.gd" id="1_5icx1"]
 [ext_resource type="Script" path="res://main.gd" id="1_tkpq6"]
+[ext_resource type="Script" path="res://settings_manager.gd" id="3_fldoo"]
 [ext_resource type="PackedScene" uid="uid://bc0row32cr327" path="res://settings_window.tscn" id="3_gdqor"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_83n81"]
@@ -21,13 +22,16 @@ script = ExtResource("1_tkpq6")
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("1_5icx1")
 
+[node name="SettingsManager" type="Node" parent="."]
+script = ExtResource("3_fldoo")
+
 [node name="FPS" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 7
 
 [node name="WallTop" type="CollisionShape2D" parent="Walls"]
 shape = SubResource("WorldBoundaryShape2D_83n81")
@@ -49,5 +53,4 @@ offset_left = -40.0
 offset_right = 0.0
 grow_horizontal = 0
 
-[connection signal="clear_bullets" from="SettingsWindow" to="." method="_on_settings_window_clear_bullets"]
 [connection signal="new_settings" from="SettingsWindow" to="." method="_on_settings_window_new_settings"]
