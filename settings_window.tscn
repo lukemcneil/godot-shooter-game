@@ -47,7 +47,45 @@ text = "Invincible: "
 [node name="CheckBox" type="CheckBox" parent="InvincibleContainer"]
 layout_mode = 2
 
+[node name="BulletSpeedContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BulletSpeedContainer"]
+layout_mode = 2
+text = "Bullet Speed: "
+
+[node name="LineEdit" type="LineEdit" parent="BulletSpeedContainer"]
+layout_mode = 2
+
+[node name="BulletsBounceContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BulletsBounceContainer"]
+layout_mode = 2
+text = "Bullets Bounce: "
+
+[node name="CheckBox" type="CheckBox" parent="BulletsBounceContainer"]
+layout_mode = 2
+
+[node name="BulletSizeContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BulletSizeContainer"]
+layout_mode = 2
+text = "Bullet Size: "
+
+[node name="LineEdit" type="LineEdit" parent="BulletSizeContainer"]
+layout_mode = 2
+
+[node name="ClearBulletsButton" type="Button" parent="."]
+layout_mode = 2
+text = "Clear Bullets"
+
 [connection signal="text_changed" from="PlayerSpeedContainer/LineEdit" to="." method="_on_player_speed_edit_text_changed"]
 [connection signal="text_changed" from="ShootDelayContainer/LineEdit" to="." method="_on_shoot_delay_line_edit_text_changed"]
 [connection signal="text_changed" from="StartingHealthContainer/LineEdit" to="." method="_on_starting_health_line_edit_text_changed"]
 [connection signal="toggled" from="InvincibleContainer/CheckBox" to="." method="_on_invincible_check_box_toggled"]
+[connection signal="text_changed" from="BulletSpeedContainer/LineEdit" to="." method="_on_bullet_speed_line_edit_text_changed"]
+[connection signal="toggled" from="BulletsBounceContainer/CheckBox" to="." method="_on_bullets_bounce_check_box_toggled"]
+[connection signal="text_changed" from="BulletSizeContainer/LineEdit" to="." method="_on_bullet_size_line_edit_text_changed"]
+[connection signal="pressed" from="ClearBulletsButton" to="." method="_on_clear_bullets_button_pressed"]

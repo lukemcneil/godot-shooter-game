@@ -35,7 +35,7 @@ script = SubResource("GDScript_7ge7v")
 shape = SubResource("RectangleShape2D_5rjjo")
 
 [node name="BulletSpawnMarker" type="Marker2D" parent="."]
-position = Vector2(56, 0)
+position = Vector2(43, 0)
 
 [node name="Body" type="ColorRect" parent="."]
 offset_left = -32.0

@@ -1,15 +1,12 @@
 extends Node
 
 @export var player_speed = 400
-@export var shoot_delay = 0.1
+@export var shoot_delay = 1
 @export var starting_health = 3
-@export var invincible = false
-
-# map from player integer to the player node
-var player_nodes = {}
-var screen_size
-signal pause
-
+@export var invincible = true
+@export var bullet_speed = 100
+@export var bullets_bounce = false
+@export var bullet_size = 0.2
 @export var colors = [
 	Color.RED,
 	Color.BLUE,
@@ -21,6 +18,11 @@ signal pause
 	Color.BROWN
 ]
 
+# map from player integer to the player node
+var player_nodes = {}
+var screen_size
+signal pause
+
 func _ready():
 	screen_size = get_window().size
 	PlayerManager.player_joined.connect(spawn_player)
@@ -28,7 +30,7 @@ func _ready():
 	PlayerManager.join_all_unjoined_devices()
 	$Walls/WallRight.position = Vector2(screen_size.x, 0)
 	$Walls/WallBottom.position = Vector2(0, screen_size.y)
-	$SettingsWindow.init_settings(player_speed, shoot_delay, starting_health, invincible)
+	$SettingsWindow.init_settings(player_speed, shoot_delay, starting_health, invincible, bullet_speed, bullets_bounce, bullet_size)
 
 func _process(_delta):
 	PlayerManager.handle_join_input()
@@ -40,7 +42,7 @@ func spawn_player(player: int, device: int):
 	var player_node = player_scene.instantiate()
 	player_nodes[player] = player_node
 	
-	player_node.update_settings(player_speed, shoot_delay, starting_health, invincible)
+	player_node.update_settings(player_speed, shoot_delay, starting_health, invincible, bullet_speed, bullets_bounce, bullet_size)
 	# let the player know which device controls it
 	player_node.init(player, device, colors[device+1])
 	player_node.change_color.connect(on_change_color)
@@ -60,13 +62,21 @@ func _input(event):
 	if event.is_action_pressed("pause"):
 		$SettingsWindow.visible = not $SettingsWindow.visible
 
-func _on_settings_window_new_settings(player_speed, shoot_delay, starting_health, invincible):
+func _on_settings_window_new_settings(player_speed, shoot_delay, starting_health, invincible, bullet_speed, bullets_bounce, bullet_size):
 	self.player_speed = player_speed
 	self.shoot_delay = shoot_delay
 	self.starting_health = starting_health
 	self.invincible = invincible
+	self.bullet_speed = bullet_speed
+	self.bullets_bounce = bullets_bounce
+	self.bullet_size = bullet_size
+	if not bullets_bounce:
+		get_tree().call_group("bullets", "do_not_bounce")
 	for player in player_nodes.values():
-		player.update_settings(player_speed, shoot_delay, starting_health, invincible)
+		player.update_settings(player_speed, shoot_delay, starting_health, invincible, bullet_speed, bullets_bounce, bullet_size)
 
 func on_change_color(color, device):
 	colors[device+1] = color
+
+func _on_settings_window_clear_bullets():
+	get_tree().call_group("bullets", "queue_free")

@@ -2,10 +2,13 @@ extends CharacterBody2D
 
 @export var bullet_scene: PackedScene
 
-var speed = 400
-var shoot_delay = 0.1
-var starting_health = 3
-var invincible = false
+var speed: int
+var shoot_delay: float
+var starting_health: int
+var invincible: bool
+var bullet_speed: int
+var bullets_bounce: bool
+var bullet_size: float
 var color
 var health
 
@@ -53,7 +56,7 @@ func _process(delta):
 
 func _on_shoot_timer_timeout():
 	var bullet = bullet_scene.instantiate()
-	bullet.init($BulletSpawnMarker.global_position, rotation, color, player)
+	bullet.init($BulletSpawnMarker.global_position, rotation, color, player, bullet_speed, bullets_bounce, bullet_size)
 	get_parent().add_child(bullet)
 
 func _on_player_hit_box_body_entered(body):
@@ -63,9 +66,13 @@ func _on_player_hit_box_body_entered(body):
 		if health == 0:
 			PlayerManager.leave(player)
 
-func update_settings(player_speed, shoot_delay, starting_health, invincible):
+func update_settings(player_speed, shoot_delay, starting_health, invincible, bullet_speed, bullets_bounce, bullet_size):
 	self.speed = player_speed
 	self.shoot_delay = shoot_delay
-	$ShootTimer.wait_time = shoot_delay
+	if shoot_delay > 0:
+		$ShootTimer.wait_time = shoot_delay
 	self.starting_health = starting_health
 	self.invincible = invincible
+	self.bullet_speed = bullet_speed
+	self.bullets_bounce = bullets_bounce
+	self.bullet_size = bullet_size

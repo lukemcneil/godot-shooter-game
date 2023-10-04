@@ -17,8 +17,6 @@ normal = Vector2(-1, 0)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tkpq6")
-shoot_delay = 0.001
-invincible = true
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("1_5icx1")
@@ -51,4 +49,5 @@ offset_left = -40.0
 offset_right = 0.0
 grow_horizontal = 0
 
+[connection signal="clear_bullets" from="SettingsWindow" to="." method="_on_settings_window_clear_bullets"]
 [connection signal="new_settings" from="SettingsWindow" to="." method="_on_settings_window_new_settings"]
