@@ -8,6 +8,7 @@ var starting_health: int
 var invincible: bool
 var bullet_speed: int
 var bullet_size: float
+var gravity: float
 var color: Color
 var health
 
@@ -35,11 +36,13 @@ func init(player_num: int, device_num: int):
 func sync_data_with_settings_manager():
 	speed = SettingsManager.player_speed
 	shoot_delay = SettingsManager.shoot_delay
-	$ShootTimer.wait_time = shoot_delay
+	if shoot_delay > 0:
+		$ShootTimer.wait_time = shoot_delay
 	starting_health = SettingsManager.starting_health
 	invincible = SettingsManager.invincible
 	bullet_speed = SettingsManager.bullet_speed
 	bullet_size = SettingsManager.bullet_size
+	gravity = SettingsManager.gravity
 
 func _process(delta):
 	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -69,7 +72,7 @@ func sync_color_with_settings():
 
 func _on_shoot_timer_timeout():
 	var bullet = bullet_scene.instantiate()
-	bullet.init($BulletSpawnMarker.global_position, rotation, color, player, bullet_speed, bullet_size)
+	bullet.init($BulletSpawnMarker.global_position, rotation, color, player, bullet_speed, bullet_size, gravity)
 	get_parent().add_child(bullet)
 
 func _on_player_hit_box_body_entered(body):

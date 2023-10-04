@@ -52,5 +52,3 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_right = 0.0
 grow_horizontal = 0
-
-[connection signal="new_settings" from="SettingsWindow" to="." method="_on_settings_window_new_settings"]

@@ -1,7 +1,5 @@
 extends VBoxContainer
 
-signal new_settings(player_speed: int, shoot_delay: float, starting_health: int, bullet_speed: int, invincible: bool, bullet_size: float)
-
 func _ready():
 	$PlayerSpeedContainer/LineEdit.text = str(SettingsManager.player_speed)
 	$ShootDelayContainer/LineEdit.text = str(SettingsManager.shoot_delay)
@@ -10,6 +8,7 @@ func _ready():
 	$BulletSpeedContainer/LineEdit.text = str(SettingsManager.bullet_speed)
 	$BulletsBounceContainer/CheckBox.button_pressed = SettingsManager.bullets_bounce
 	$BulletSizeContainer/LineEdit.text = str(SettingsManager.bullet_size)
+	$GravityContainer/LineEdit.text = str(SettingsManager.gravity)
 
 func _on_player_speed_edit_text_changed(new_text):
 	SettingsManager.player_speed = int(new_text)
@@ -42,4 +41,9 @@ func _on_clear_bullets_button_pressed():
 
 func _on_bullet_size_line_edit_text_changed(new_text):
 	SettingsManager.bullet_size = float(new_text)
+	SettingsManager.emit_signal("settings_updated")
+
+func _on_gravity_line_edit_text_changed(new_text):
+	SettingsManager.gravity = float(new_text)
+	SettingsManager.emit_signal("set_bullets_gravity", float(new_text))
 	SettingsManager.emit_signal("settings_updated")
