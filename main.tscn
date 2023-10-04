@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1gvpl3oxt31c"]
+[gd_scene load_steps=8 format=3 uid="uid://b1gvpl3oxt31c"]
 
 [ext_resource type="Script" path="res://player_manager.gd" id="1_5icx1"]
 [ext_resource type="Script" path="res://main.gd" id="1_tkpq6"]
+[ext_resource type="PackedScene" uid="uid://bc0row32cr327" path="res://settings_window.tscn" id="3_gdqor"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_83n81"]
 normal = Vector2(0, 1)
@@ -16,6 +17,8 @@ normal = Vector2(-1, 0)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_tkpq6")
+shoot_delay = 0.001
+invincible = true
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("1_5icx1")
@@ -35,9 +38,17 @@ shape = SubResource("WorldBoundaryShape2D_83n81")
 shape = SubResource("WorldBoundaryShape2D_syubo")
 
 [node name="WallBottom" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1152, 648)
 shape = SubResource("WorldBoundaryShape2D_28oc4")
 
 [node name="WallRight" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1152, 0)
 shape = SubResource("WorldBoundaryShape2D_hws1a")
+
+[node name="SettingsWindow" parent="." instance=ExtResource("3_gdqor")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_right = 0.0
+grow_horizontal = 0
+
+[connection signal="new_settings" from="SettingsWindow" to="." method="_on_settings_window_new_settings"]

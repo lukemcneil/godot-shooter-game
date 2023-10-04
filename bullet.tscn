@@ -17,7 +17,6 @@ physics_material_override = SubResource("PhysicsMaterial_oouwr")
 gravity_scale = 0.0
 script = ExtResource("1_utgbp")
 speed = 1200
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 use_parent_material = true
