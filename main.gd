@@ -49,6 +49,6 @@ func disable_bit(mask: int, index: int) -> int:
 
 func toggle_bullets_bounce(value):
 	if value:
-		$Walls.collision_layer = enable_bit($Walls.collision_layer, 1)
+		$Walls.collision_layer = enable_bit($Walls.collision_layer, 0)
 	else:
-		$Walls.collision_layer = disable_bit($Walls.collision_layer, 1)
+		$Walls.collision_layer = disable_bit($Walls.collision_layer, 0)

@@ -2,6 +2,7 @@ extends Node
 
 signal settings_updated
 signal toggle_bullets_bounce(value)
+signal toggle_bullets_hit_bullets(value)
 signal set_bullets_gravity(value)
 
 @export var player_speed = 400
@@ -10,6 +11,7 @@ signal set_bullets_gravity(value)
 @export var invincible = false
 @export var bullet_speed = 600
 @export var bullets_bounce = false
+@export var bullets_hit_bullets = false
 @export var bullet_size = 0.2
 @export var gravity = 0
 @export var colors = [

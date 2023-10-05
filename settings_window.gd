@@ -47,3 +47,8 @@ func _on_gravity_line_edit_text_changed(new_text):
 	SettingsManager.gravity = float(new_text)
 	SettingsManager.emit_signal("set_bullets_gravity", float(new_text))
 	SettingsManager.emit_signal("settings_updated")
+
+func _on_bullets_hit_bullets_check_box_toggled(button_pressed):
+	SettingsManager.bullets_hit_bullets = button_pressed
+	SettingsManager.emit_signal("toggle_bullets_hit_bullets", button_pressed)
+	SettingsManager.emit_signal("settings_updated")

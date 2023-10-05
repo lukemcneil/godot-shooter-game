@@ -9,6 +9,7 @@ var invincible: bool
 var bullet_speed: int
 var bullet_size: float
 var gravity: float
+var bullets_hit_bullets: bool
 var color: Color
 var health
 
@@ -43,6 +44,7 @@ func sync_data_with_settings_manager():
 	bullet_speed = SettingsManager.bullet_speed
 	bullet_size = SettingsManager.bullet_size
 	gravity = SettingsManager.gravity
+	bullets_hit_bullets = SettingsManager.bullets_hit_bullets
 
 func _process(delta):
 	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -51,7 +53,28 @@ func _process(delta):
 
 	var look: Vector2 = input.get_vector("look_left", "look_right", "look_up", "look_down")
 	if !look.is_zero_approx():
-		rotation = look.angle()
+		# Calculate the difference between current and target rotations
+		var rotation_difference = rotation - look.angle() + PI
+
+		var max_rotation = 10*delta
+
+		# Normalize the rotation difference to be within -π to π radians
+		if rotation_difference > PI:
+			rotation_difference -= 2 * PI
+		elif rotation_difference < -PI:
+			rotation_difference += 2 * PI
+
+		# Ensure the rotation stays within the maximum limit
+		if rotation_difference > max_rotation:
+			rotation_difference = max_rotation
+		elif rotation_difference < -max_rotation:
+			rotation_difference = -max_rotation
+		else:
+			rotation = look.angle()
+			return
+
+		# Calculate the new rotation after limiting
+		rotation += rotation_difference
 
 	# let the player leave by pressing the "join" button
 	if input.is_action_just_pressed("join"):
@@ -72,7 +95,7 @@ func sync_color_with_settings():
 
 func _on_shoot_timer_timeout():
 	var bullet = bullet_scene.instantiate()
-	bullet.init($BulletSpawnMarker.global_position, rotation, color, player, bullet_speed, bullet_size, gravity)
+	bullet.init($BulletSpawnMarker.global_position, rotation, color, player, bullet_speed, bullet_size, gravity, bullets_hit_bullets)
 	get_parent().add_child(bullet)
 
 func _on_player_hit_box_body_entered(body):

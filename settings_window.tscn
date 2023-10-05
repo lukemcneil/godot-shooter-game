@@ -67,6 +67,16 @@ text = "Bullets Bounce: "
 [node name="CheckBox" type="CheckBox" parent="BulletsBounceContainer"]
 layout_mode = 2
 
+[node name="BulletsHitBulletsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BulletsHitBulletsContainer"]
+layout_mode = 2
+text = "Bullets Hit Bullets: "
+
+[node name="CheckBox" type="CheckBox" parent="BulletsHitBulletsContainer"]
+layout_mode = 2
+
 [node name="BulletSizeContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
@@ -97,6 +107,7 @@ text = "Clear Bullets"
 [connection signal="toggled" from="InvincibleContainer/CheckBox" to="." method="_on_invincible_check_box_toggled"]
 [connection signal="text_changed" from="BulletSpeedContainer/LineEdit" to="." method="_on_bullet_speed_line_edit_text_changed"]
 [connection signal="toggled" from="BulletsBounceContainer/CheckBox" to="." method="_on_bullets_bounce_check_box_toggled"]
+[connection signal="toggled" from="BulletsHitBulletsContainer/CheckBox" to="." method="_on_bullets_hit_bullets_check_box_toggled"]
 [connection signal="text_changed" from="BulletSizeContainer/LineEdit" to="." method="_on_bullet_size_line_edit_text_changed"]
 [connection signal="text_changed" from="GravityContainer/LineEdit" to="." method="_on_gravity_line_edit_text_changed"]
 [connection signal="pressed" from="ClearBulletsButton" to="." method="_on_clear_bullets_button_pressed"]
